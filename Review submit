@@ -50,7 +50,7 @@
     const msg = document.getElementById('responseMsg');
 
     // 🟡 REPLACE this with your reviews API URL from SheetDB
-    const reviewsAPI = 'https://sheetdb.io/api/v1/REPLACE_THIS_WITH_YOUR_REVIEWS_API';
+    const reviewsAPI = 'https://sheetdb.io/api/v1/7mhoa77kzw58h';
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
