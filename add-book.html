@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add or Edit Book</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>✏️ Add or Edit Book</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="books.html">Book List</a>
+      <a href="add-book.html">Add/Edit Book</a>
+    </nav>
+  </header>
+
+  <main>
+    <form>
+      <label>Book Title:</label><br>
+      <input type="text" name="title"><br><br>
+
+      <label>Author:</label><br>
+      <input type="text" name="author"><br><br>
+
+      <label>Review:</label><br>
+      <textarea name="review" rows="5" cols="40"></textarea><br><br>
+
+      <label>Book Cover (Image URL):</label><br>
+      <input type="text" name="image"><br><br>
+
+      <button type="submit">Save Book (Non-functional in static site)</button>
+    </form>
+    <p><small>* Note: This form is only visual. You'll need a backend or database to actually store data.</small></p>
+  </main>
+
+  <footer>&copy; 2025 College Library</footer>
+</body>
+</html>
