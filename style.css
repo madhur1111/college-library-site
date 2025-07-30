@@ -1,41 +1,39 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f3f7fa;
-  color: #333;
   margin: 0;
   padding: 0;
+  background: #f5f7fa;
+  color: #333;
 }
+
 header {
-  background-color: #004466;
+  background: #34495e;
   color: white;
-  padding: 20px;
+  padding: 1rem;
   text-align: center;
 }
+
 nav a {
-  color: white;
-  margin: 0 15px;
+  margin: 0 10px;
+  color: #ecf0f1;
   text-decoration: none;
 }
+
 main {
-  padding: 20px;
+  padding: 2rem;
 }
-.book {
-  display: flex;
-  margin-bottom: 20px;
-  background-color: white;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-.book img {
-  width: 120px;
-  margin-right: 20px;
-  border-radius: 5px;
-}
+
 footer {
-  background-color: #004466;
-  color: white;
   text-align: center;
-  padding: 10px;
-  margin-top: 20px;
+  padding: 1rem;
+  background: #ecf0f1;
+  margin-top: 2rem;
+}
+
+.book-card {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
 }

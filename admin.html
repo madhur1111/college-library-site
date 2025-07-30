@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - Add Book</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🔐 Admin: Add New Book</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="books.html">Book List</a>
+      <a href="submit-review.html">Submit Review</a>
+    </nav>
+  </header>
+
+  <main id="protectedContent" style="display:none;">
+    <form id="bookForm">
+      <label>Book Title:</label><br>
+      <input type="text" name="title" required><br><br>
+
+      <label>Author:</label><br>
+      <input type="text" name="author" required><br><br>
+
+      <label>Genre:</label><br>
+      <input type="text" name="genre" required><br><br>
+
+      <label>Year:</label><br>
+      <input type="number" name="year" required><br><br>
+
+      <button type="submit">Add Book</button>
+    </form>
+    <p id="responseMsg"></p>
+  </main>
+
+  <footer>&copy; 2025 College Library</footer>
+
+  <script>
+    const correctPassword = "pccoerbook";
+    const userPassword = prompt("Enter admin password:");
+    if (userPassword === correctPassword) {
+      document.getElementById("protectedContent").style.display = "block";
+    } else {
+      document.body.innerHTML = "<h2>❌ Access Denied. Incorrect password.</h2>";
+    }
+
+    const form = document.getElementById('bookForm');
+    const msg = document.getElementById('responseMsg');
+    const booksAPI = 'https://sheetdb.io/api/v1/wiz4ptw68j77c';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      const payload = { data: data };
+
+      const res = await fetch(booksAPI, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        msg.textContent = "✅ Book added successfully!";
+        form.reset();
+      } else {
+        msg.textContent = "❌ Failed to add book.";
+      }
+    });
+  </script>
+</body>
+</html>
