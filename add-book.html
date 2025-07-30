@@ -1,38 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Add or Edit Book</title>
+  <title>Add Book (Admin Only)</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>✏️ Add or Edit Book</h1>
+    <h1>📘 Add a New Book</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="books.html">Book List</a>
-      <a href="add-book.html">Add/Edit Book</a>
+      <a href="add-book.html">Add Book</a>
     </nav>
   </header>
 
   <main>
-    <form>
+    <form id="bookForm">
       <label>Book Title:</label><br>
-      <input type="text" name="title"><br><br>
+      <input type="text" name="title" required><br><br>
 
       <label>Author:</label><br>
-      <input type="text" name="author"><br><br>
+      <input type="text" name="author" required><br><br>
 
-      <label>Review:</label><br>
-      <textarea name="review" rows="5" cols="40"></textarea><br><br>
+      <label>Genre:</label><br>
+      <input type="text" name="genre"><br><br>
 
-      <label>Book Cover (Image URL):</label><br>
+      <label>Book Review (optional):</label><br>
+      <textarea name="review" rows="4" cols="40"></textarea><br><br>
+
+      <label>Cover Image URL:</label><br>
       <input type="text" name="image"><br><br>
 
-      <button type="submit">Save Book (Non-functional in static site)</button>
+      <button type="submit">Add Book</button>
     </form>
-    <p><small>* Note: This form is only visual. You'll need a backend or database to actually store data.</small></p>
+
+    <p id="responseMsg"></p>
   </main>
 
   <footer>&copy; 2025 College Library</footer>
+
+  <script>
+    const form = document.getElementById('bookForm');
+    const msg = document.getElementById('responseMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      const payload = { data: data };
+
+      const res = await fetch('https://sheetdb.io/api/v1/wiz4ptw68j77c', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        msg.textContent = "✅ Book added successfully!";
+        form.reset();
+      } else {
+        msg.textContent = "❌ Error adding book. Try again.";
+      }
+    });
+  </script>
 </body>
 </html>
+
+
