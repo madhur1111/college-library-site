@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submit Review</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>📝 Submit Your Book Review</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="books.html">Book List</a>
+      <a href="submit-review.html">Submit Review</a>
+    </nav>
+  </header>
+
+  <main>
+    <form id="reviewForm">
+      <label>Your Name:</label><br>
+      <input type="text" name="student_name" required><br><br>
+
+      <label>Select Book:</label><br>
+      <select name="book_title" id="bookDropdown" required>
+        <option value="">Loading books...</option>
+      </select><br><br>
+
+      <label>Rating (1 to 5):</label><br>
+      <select name="rating" required>
+        <option value="">-- Select Rating --</option>
+        <option value="1">⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+      </select><br><br>
+
+      <label>Write Review:</label><br>
+      <textarea name="comment" rows="4" required></textarea><br><br>
+
+      <button type="submit">Submit Review</button>
+    </form>
+
+    <p id="responseMsg"></p>
+  </main>
+
+  <footer>&copy; 2025 College Library</footer>
+
+  <script>
+    const form = document.getElementById('reviewForm');
+    const msg = document.getElementById('responseMsg');
+
+    // 🟡 REPLACE this with your reviews API URL from SheetDB
+    const reviewsAPI = 'https://sheetdb.io/api/v1/REPLACE_THIS_WITH_YOUR_REVIEWS_API';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      const payload = { data: data };
+
+      const res = await fetch(reviewsAPI, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        msg.textContent = "✅ Review submitted!";
+        form.reset();
+      } else {
+        msg.textContent = "❌ Error submitting. Try again.";
+      }
+    });
+
+    // Load book titles into dropdown from existing book API
+    async function loadBookTitles() {
+      const res = await fetch('https://sheetdb.io/api/v1/wiz4ptw68j77c');
+      const books = await res.json();
+      const dropdown = document.getElementById('bookDropdown');
+      dropdown.innerHTML = '<option value="">-- Select a Book --</option>';
+
+      books.forEach(book => {
+        const opt = document.createElement('option');
+        opt.value = book.title;
+        opt.textContent = book.title;
+        dropdown.appendChild(opt);
+      });
+    }
+
+    loadBookTitles();
+  </script>
+</body>
+</html>
